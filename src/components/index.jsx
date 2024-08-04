@@ -1,20 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
+import { decrement, increment, setStep } from "../store/slices/counterSlice";
 
-function Counter({ dispatch, count, step }) {
+function Counter({ dispatch, counter: { count, step } }) {
   const dec = () => {
-    const action = { type: "decrement" };
-    dispatch(action);
+    dispatch(decrement());
   };
 
   const inc = () => {
-    const action = { type: "increment" };
-    dispatch(action);
+    dispatch(increment());
   };
 
-  const setStep = ({ target: { value } }) => {
-    const action = { type: "setStep", payload: Number(value) };
-    dispatch(action);
+  const changeStep = ({ target: { value } }) => {
+    dispatch(setStep(Number(value)));
   };
 
   return (
@@ -23,7 +21,7 @@ function Counter({ dispatch, count, step }) {
       {count}
       <button onClick={inc}>+</button>
       <div>
-        <input type="number" value={step} onChange={setStep} />
+        <input type="number" value={step} onChange={changeStep} />
       </div>
     </div>
   );
