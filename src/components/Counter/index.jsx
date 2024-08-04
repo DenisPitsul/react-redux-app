@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { decrement, increment, setStep } from "../store/slices/counterSlice";
+import { decrement, increment, setStep } from "../../store/slices/counterSlice";
 
 function Counter({ count, step, dec, inc, updateStep }) {
   const changeStep = ({ target: { value } }) => updateStep(value);
