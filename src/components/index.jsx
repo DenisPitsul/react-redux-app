@@ -2,18 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { decrement, increment, setStep } from "../store/slices/counterSlice";
 
-function Counter({ dispatch, count, step }) {
-  const dec = () => {
-    dispatch(decrement());
-  };
-
-  const inc = () => {
-    dispatch(increment());
-  };
-
-  const changeStep = ({ target: { value } }) => {
-    dispatch(setStep(Number(value)));
-  };
+function Counter({ count, step, dec, inc, updateStep }) {
+  const changeStep = ({ target: { value } }) => updateStep(value);
 
   return (
     <div>
@@ -31,6 +21,14 @@ function mapStateToProps(state) {
   return state.counter;
 }
 
-const withAccessToStore = connect(mapStateToProps);
+function mapDispatchToProps(dispatch) {
+  return {
+    dec: () => dispatch(decrement()),
+    inc: () => dispatch(increment()),
+    updateStep: (value) => dispatch(setStep(Number(value))),
+  };
+}
+
+const withAccessToStore = connect(mapStateToProps, mapDispatchToProps);
 
 export default withAccessToStore(Counter);
